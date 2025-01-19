@@ -60,6 +60,9 @@ const ProductSchema: Schema = new Schema({
 });
 
 
+ProductSchema.index({ location: "2dsphere" });
+
+
 const Product: Model<IProductDoc> = mongoose.model<IProductDoc>("Product",ProductSchema);
 
 export default Product;

@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-
 interface IProduct {
   deviceCondition: string;
   listedBy: string;
@@ -15,7 +14,7 @@ interface IProduct {
   listingPrice: number;
   make: string;
   marketingName: string;
-  deviceModel: string; 
+  deviceModel: string;
   verified: boolean;
   listingId: string;
   listingDate: string;
@@ -27,9 +26,7 @@ interface IProduct {
   };
 }
 
-
 interface IProductDoc extends IProduct, Document {}
-
 
 const ProductSchema: Schema = new Schema({
   deviceCondition: { type: String, required: true },
@@ -47,7 +44,7 @@ const ProductSchema: Schema = new Schema({
   listingPrice: { type: Number, required: true },
   make: { type: String, required: true },
   marketingName: { type: String, required: true },
-  deviceModel: { type: String, required: true }, 
+  deviceModel: { type: String, required: true },
   verified: { type: Boolean, required: true },
   listingId: { type: String, required: true },
   listingDate: { type: String, required: true },
@@ -59,10 +56,11 @@ const ProductSchema: Schema = new Schema({
   },
 });
 
-
 ProductSchema.index({ location: "2dsphere" });
 
-
-const Product: Model<IProductDoc> = mongoose.model<IProductDoc>("Product",ProductSchema);
+const Product: Model<IProductDoc> = mongoose.model<IProductDoc>(
+  "Product",
+  ProductSchema
+);
 
 export default Product;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductCard from "./ProductCard";
 import { Product } from "@/assets/interface/product";
 import { useProducts } from "@/lib/productQuery";
@@ -39,7 +39,7 @@ const { data:products , isLoading , isError } = useProducts();
 
   return (
     <div className="grid grid-cols-4 gap-6 p-6 sm:grid-cols-2  mg:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-      {products.length > 0 ? (
+      {products && products.length > 0 ? (
         products.map((product : Product) => (
           <ProductCard key={product._id} product={product} />
         ))

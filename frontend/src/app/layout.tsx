@@ -1,6 +1,7 @@
 
 import './global.css';
-
+import { Provider } from "jotai";
+// import { DevToolsProvider } from '@/providers/dev-tools';
 
 export const metadata = {
   title: 'Next.js',
@@ -16,10 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <Provider>
     <html lang="en">
       <body>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
+      {/* <DevToolsProvider /> */}
+    </Provider>
   );
 }

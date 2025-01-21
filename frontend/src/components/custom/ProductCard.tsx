@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       <div className="h-48 overflow-hidden rounded-t-lg">
         <img
-          src={product.images[0].thumbImage}
+          src={product.images[0]?.thumbImage}
           alt={`${product.make} ${product.deviceModel}`}
           className="object-cover w-full h-full"
         />
@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       <div className="p-4 space-y-1">
         <h3 className="text-base font-semibold">
-          {product.make} {product.deviceModel}
+           {product.deviceModel}
         </h3>
         <p className="text-xs text-gray-500">
           {product.deviceRam} / {product.deviceStorage} •{" "}

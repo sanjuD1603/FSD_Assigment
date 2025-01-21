@@ -6,7 +6,6 @@ const useProducts = () => {
   const filter = useAtomValue(filterAtom);
 
   const fetchProduct = async () => {
-    
     const brandQuery =
       filter?.make && filter?.make.length > 0
         ? `brands=${filter.make.join(",")}`
@@ -39,8 +38,12 @@ const useProducts = () => {
       filter?.model && filter.model.length > 0
         ? `models=${filter.model.join(",")}`
         : "";
+    const coordinatesQuery =
+      filter?.coordinates && filter?.maxDistance
+        ? `coordinates=${filter.coordinates}&distance=${filter.maxDistance}`
+        : "";
 
-    
+
     const queryString = [
       brandQuery,
       conditionQuery,
@@ -50,8 +53,9 @@ const useProducts = () => {
       warrantyQuery,
       priceQuery,
       modelQuery,
+      coordinatesQuery,
     ]
-      .filter(Boolean) 
+      .filter(Boolean)
       .join("&");
 
     console.log("Query String:", queryString);

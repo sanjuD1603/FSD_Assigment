@@ -78,7 +78,7 @@ export default function Brand() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="space-y-2 max-h-64 overflow-y-auto">
-            {/* Select All */}
+            
             <div>
               <label className="flex items-center space-x-2">
                 <input

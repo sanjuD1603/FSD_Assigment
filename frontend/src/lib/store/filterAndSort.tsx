@@ -10,6 +10,7 @@ export interface FilterAtomInterface {
   verified?: true | "";
   maxDistance?: number;
   priceRange?: [number, number];
+  coordinates?: [number, number];
   status?: string[];
 }
 
@@ -22,6 +23,7 @@ export const filterAtom = atom<FilterAtomInterface>({
   warranty: [],
   verified: undefined,
   maxDistance: undefined,
+  coordinates: undefined,
   priceRange: undefined,
   status: [],
 });

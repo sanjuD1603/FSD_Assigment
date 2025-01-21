@@ -2,8 +2,8 @@ import mongoose,{Document,Model,Schema} from "mongoose";
 
 interface IUser extends Document{
 name: string;
-email:string;
-passsword?:string;
+username:string;
+password?:string;
 id:string;    
 }
 
@@ -12,12 +12,12 @@ const UserSchema: Schema<IUser>= new mongoose.Schema({
         type: String,
         required:true,
     },
-    email:{
+    username:{
         type:String,
         required:true,
         unique:true
     },
-    passsword:{
+    password:{
         type:String,
         required:false,
     },

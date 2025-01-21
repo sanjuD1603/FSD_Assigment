@@ -1,0 +1,135 @@
+import { Request, Response } from "express";
+import { validationResult } from "express-validator";
+import bcrypt from "bcrypt";
+import User from "../models/userModel.js";
+
+export const signUpRoute = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({
+      errors: errors.array(),
+    });
+    return;
+  }
+
+  const { name, username, password } = req.body;
+  
+
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      res.status(400).json({
+        error: "User already exists. Please log in.",
+      });
+      return;
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = new User({
+      name,
+      username,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        name: newUser.name,
+        username: newUser.username,
+      },
+    });
+    return;
+  } catch (error) {
+    console.error("Error during signup:", error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+
+export const signInRoute = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({
+      errors: errors.array(),
+    });
+    return;
+  }
+
+  const { username, password } = req.body;
+  console.log(username, password);
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.status(404).json({
+        error: "User not found. Please register.",
+      });
+      return;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      res.status(401).json({
+        error: "Invalid credentials. Please try again.",
+      });
+      return;
+    }
+
+    req.session.user = {
+      id: user._id.toString(),
+      name: user.name,
+      username: user.username,
+    };
+    console.log(req.session.user);
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Error saving session:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+        return;
+      }
+    });
+
+    res.status(200).json({
+      message: "Sign-in successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        username: user.username,
+      },
+    });
+    return;
+  } catch (error) {
+    console.error("Error during signin:", error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+    return;
+  }
+};
+
+export const getSessionUser = (req: Request, res: Response): Promise<void> => {
+  if (req.session.user) {
+    res.status(200).json({
+      user: req.session.user,
+    });
+    return;
+  }
+
+  res.status(401).json({
+    error: "No active session",
+  });
+  return;
+};

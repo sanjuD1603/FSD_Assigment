@@ -44,7 +44,12 @@ const Navbar: React.FC = () => {
   }, [filter.make, models]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value); 
+    const value = e.target.value
+    setSearchTerm(value); 
+
+    if (value.trim() === "") {
+    setFilter({make : [] , model : []})
+    }
   };
 
   const handleSearchSubmit = () => {
@@ -74,10 +79,10 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="p-4 flex items-center space-x-4">
-      {/* Logo */}
+     
       <Image src={logo} alt="Logo" width={50} height={50} />
 
-      {/* Search Box */}
+     
       <div className="relative flex-1">
         <div className="flex items-center space-x-2">
           <input

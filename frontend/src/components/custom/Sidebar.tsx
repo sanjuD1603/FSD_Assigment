@@ -6,11 +6,13 @@ import Price from "./sidebarComponents/Price";
 import Storage from "./sidebarComponents/Storage";
 import Verification from "./sidebarComponents/Verification";
 import Warranty from "./sidebarComponents/Warranty";
+import WithinRange from "./sidebarComponents/WithinRage";
 
 export default function Sidebar() {
   return (
     <div className="p-10 z-10 relative">
       <div className="space-y-6">
+      <WithinRange/>
       <Brand />
       <Condition />
       <Price />

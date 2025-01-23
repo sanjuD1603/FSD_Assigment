@@ -10,6 +10,17 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  function isValidUrl(url: string) {
+    try {
+      // Attempt to create a new URL object
+      new URL(url);
+      // Check if the protocol is HTTP or HTTPS
+      return /^https?:\/\//.test(url);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
   return (
     <div className="relative flex flex-col border rounded-lg shadow-lg bg-white w-full sm:w-[180px] md:w-[200px] lg:w-[220px] xl:w-[240px] h-auto hover:border-2 hover:border-[#1D506A] transition-transform duration-300 hover:scale-105">
       {product.verified && (
@@ -19,10 +30,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       )}
 
       <div className="h-[160px] sm:h-[180px] md:h-[200px] lg:h-[220px] overflow-hidden rounded-t-lg">
-        <img
-          src={product.images[0]?.thumbImage}
+        <Image
+          src={
+            isValidUrl(product.images[0]?.thumbImage)
+              ? product.images[0]?.thumbImage
+              : "/placeholder.png"
+          }
           alt={`${product.make} ${product.deviceModel}`}
-          className="object-cover w-full h-full"
+          className="object-cover"
+          width={300}
+          height={400}
         />
       </div>
 

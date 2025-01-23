@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent, FormEvent } from "react";
-import bcryptjs from "bcryptjs-react";
+// import bcryptjs from "bcryptjs-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -55,9 +55,9 @@ const SignUp = () => {
     }
 
     try {
-      const hashedPassword = await bcryptjs.hash(form.password, 10);
-      const { confirmPassword, ...formData } = form;
-      const updatedFormData = { ...formData, password: hashedPassword };
+      // const hashedPassword = await bcryptjs.hash(form.password, 10);
+      // const { confirmPassword, ...formData } = form;
+      // const updatedFormData = { ...formData, password: hashedPassword };
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/api/users/signup`,
@@ -66,7 +66,7 @@ const SignUp = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedFormData),
+          body: JSON.stringify(form),
           credentials: "include",
         }
       );
@@ -102,9 +102,10 @@ const SignUp = () => {
       <Card className="w-[90%] sm:w-[420px] p-4 sm:p-8 shadow-lg bg-white rounded-lg">
         <CardHeader className="flex flex-col items-center">
           <Image src={logo} alt="Logo" width={140} height={120} />
-          <CardTitle className="text-center text-[#1D506A] mt-4"></CardTitle>
-          <CardDescription className="text-sm text-center text-gray-600 mt-2">
-          </CardDescription>
+          <CardTitle className="text-center text-[#1D506A] mt-4">
+            Sign Up
+          </CardTitle>
+          <CardDescription className="text-sm text-center text-gray-600 mt-2"></CardDescription>
         </CardHeader>
         <CardContent className="px-2 sm:px-6">
           <form className="space-y-3" onSubmit={handleSubmit}>

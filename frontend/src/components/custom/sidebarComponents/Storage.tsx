@@ -40,6 +40,7 @@ export default function Storage() {
           ? filter.storage?.filter((s) => s !== storage) 
           : [...(filter.storage || []), storage], 
       }));
+      setSearchTerm("");
     }
     notify("Results Fetched Successfully");
   };

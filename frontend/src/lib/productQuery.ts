@@ -88,6 +88,7 @@ const useProducts = () => {
 
       return data.products || [];
     } catch (error) {
+      console.log(error);
       notify("An Internal Error has Occured", "error");
       return [];
     }

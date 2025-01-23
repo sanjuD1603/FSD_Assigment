@@ -6,12 +6,11 @@ import { useState } from "react";
 import { notify } from "@/components/custom/NotificationProvider";
 
 export default function Condition() {
-  const [filter, setFilter] = useAtom(filterAtom); 
+  const [filter, setFilter] = useAtom(filterAtom);
   const conditions = ["Like New", "Fair", "Excellent", "Good", "Needs Repair"];
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  
   const filteredConditions = conditions.filter((condition) =>
     condition.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -20,16 +19,17 @@ export default function Condition() {
     if (condition === "Any Condition") {
       setFilter((prev) => ({
         ...prev,
-        condition: [], 
+        condition: [],
       }));
     } else {
       const isSelected = filter.condition?.includes(condition);
       setFilter((prev) => ({
         ...prev,
         condition: isSelected
-          ? filter.condition?.filter((c) => c !== condition) 
-          : [...(filter.condition || []), condition], 
+          ? filter.condition?.filter((c) => c !== condition)
+          : [...(filter.condition || []), condition],
       }));
+      setSearchTerm("");
     }
     notify("Results Fetched Successfully");
   };
@@ -37,7 +37,7 @@ export default function Condition() {
   const handleSelectAll = () => {
     setFilter((prev) => ({
       ...prev,
-      condition: [], 
+      condition: [],
     }));
   };
 
@@ -80,7 +80,7 @@ export default function Condition() {
                 <input
                   type="checkbox"
                   className="peer hidden"
-                  checked={filter.condition?.length === 0} 
+                  checked={filter.condition?.length === 0}
                   onChange={handleSelectAll}
                 />
                 <span className="w-5 h-5 border border-[#1D506A] rounded-sm flex items-center justify-center peer-checked:bg-[#1D506A] peer-checked:border-[#1D506A]">
@@ -108,8 +108,10 @@ export default function Condition() {
                 <input
                   type="checkbox"
                   className="peer hidden"
-                  checked={filter.condition?.includes(condition)} 
-                  onChange={() => handleCheckboxChange(condition)}
+                  checked={filter.condition?.includes(condition)}
+                  onChange={() => {
+                    handleCheckboxChange(condition);
+                  }}
                 />
                 <span className="w-5 h-5 border border-[#1D506A] rounded-sm flex items-center justify-center peer-checked:bg-[#1D506A] peer-checked:border-[#1D506A]">
                   {filter.condition?.includes(condition) && (

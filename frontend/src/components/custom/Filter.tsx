@@ -6,6 +6,30 @@ import { filterAtom } from "@/lib/store/filterAndSort";
 export default function Filter() {
   const [filter, setFilter] = useAtom(filterAtom);
 
+  type Filter = {
+    ram?: string[];
+    make?: string[];
+    model?: string[];
+    condition?: string[];
+    storage?: string[];
+    warranty?: string[];
+    verified?: true | ""; // Boolean-like
+    maxDistance?: number;
+    priceRange?: [number, number];
+    coordinates?: [number, number];
+    status?: string[];
+    listingState?: string;
+    mixedProperty?: (string | number)[]; // Allow mixed string and number arrays if needed
+    [key: string]:
+      | string[]
+      | string
+      | number
+      | [number, number]
+      | true
+      | (string | number)[]
+      | undefined;
+  };
+
   const filters = [
     ...(filter?.make || []),
     ...(filter?.storage || []),
@@ -16,29 +40,19 @@ export default function Filter() {
   ];
 
   const handleRemoveFilter = (filterToRemove: string) => {
-    
-    const updatedFilter: {
-      ram?: string[];
-      make?: string[];
-      model?: string[];
-      condition?: string[];
-      storage?: string[];
-      warranty?: string[];
-      [key: string]: any; 
-    } = { ...filter };
+    const updatedFilter: Filter = { ...filter };
 
-    
     for (const key of Object.keys(updatedFilter) as Array<
       keyof typeof updatedFilter
     >) {
       if (Array.isArray(updatedFilter[key])) {
         updatedFilter[key] = updatedFilter[key]?.filter(
-          (value: string) => value !== filterToRemove
+          (value: string | number) => value !== filterToRemove
         );
       }
     }
 
-    setFilter(updatedFilter); 
+    setFilter(updatedFilter);
     // console.log(`Removed filter: ${filterToRemove}`, updatedFilter);
   };
 

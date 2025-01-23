@@ -15,7 +15,6 @@ import {
 import FetchCities from "./FetchCities";
 
 import Dialog from "./Dialog";
-import { Button } from "@/components/ui/button";
 import InputForm from "./InputFrom";
 const Navbar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -141,9 +140,9 @@ const Navbar: React.FC = () => {
       );
 
       if (response.ok) {
-        const data: { message: string } = await response.json();
+        // const data: { message: string } = await response.json();
         // console.log("Logout successful:", data.message);
-        window.location.href = "/login";
+        window.location.href = "/sign-in";
       } else {
         const errorData: { error: string } = await response.json();
         console.error("Logout failed:", errorData.error);
@@ -179,7 +178,7 @@ const Navbar: React.FC = () => {
             placeholder="Search by brand or model"
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full border h-12 shadow p-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border h-12 shadow p-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1D506A]"
           />
           <button
             onClick={handleSearchSubmit}

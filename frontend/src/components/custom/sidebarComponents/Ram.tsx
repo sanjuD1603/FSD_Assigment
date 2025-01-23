@@ -38,6 +38,7 @@ export default function Ram() {
           ? filter.ram?.filter((r) => r !== ram) 
           : [...(filter.ram || []), ram], 
       }));
+      setSearchTerm("");
     }
     notify("Results Fetched Successfully");
   };

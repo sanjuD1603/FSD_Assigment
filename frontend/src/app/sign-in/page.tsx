@@ -1,6 +1,5 @@
 "use client";
 
-import bcryptjs from "bcryptjs-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -43,10 +42,10 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const hashedPassword = await bcryptjs.hash(form.password, 10);
+      // const hashedPassword = await bcryptjs.hash(form.password, 10);
 
-      const { password, ...formData } = form;
-      const updatedFormData = { ...formData, password: hashedPassword };
+      // const { password, ...formData } = form;
+      // const updatedFormData = { ...formData, password: hashedPassword };
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/api/users/signin`,
         {
@@ -65,7 +64,7 @@ const SignIn = () => {
         return;
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       toast.success("Sign-in successful!");
       router.push("/");
     } catch (error) {
@@ -116,9 +115,7 @@ const SignIn = () => {
           </form>
           <Separator className="my-4" />
           <div className="text-center mt-2">
-            <p className="text-sm">
-              Create a New Account?
-            </p>
+            <p className="text-sm">Create a New Account?</p>
             <Link
               href="/sign-up"
               className="text-[#1D506A] hover:underline cursor-pointer text-sm"

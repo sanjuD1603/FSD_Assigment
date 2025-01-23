@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { notify } from "@/components/custom/NotificationProvider";
 import {
   FaMobileAlt,
-  FaDollarSign,
   FaMapMarkerAlt,
   FaUser,
   FaClipboardCheck,
@@ -72,7 +71,8 @@ const InputForm: React.FC<InputFormProps> = ({ onClose }) => {
 
       onClose();
     } catch (e) {
-      notify("An internal error occurred")
+      console.log("Error", e);
+      notify("An internal error occurred");
     }
   };
 
@@ -121,13 +121,13 @@ const InputForm: React.FC<InputFormProps> = ({ onClose }) => {
       name: "deviceRam",
       type: "text",
       icon: <FaClipboardCheck />,
-    }, 
+    },
     {
       label: "Storage",
       name: "deviceStorage",
       type: "text",
       icon: <FaWarehouse />,
-    }, 
+    },
   ];
 
   return (
@@ -135,8 +135,8 @@ const InputForm: React.FC<InputFormProps> = ({ onClose }) => {
       <div
         className="bg-white rounded-lg shadow-lg p-8 w-full max-w-4xl relative overflow-y-auto"
         style={{
-          maxHeight: "90vh", 
-          margin: "20px", 
+          maxHeight: "90vh",
+          margin: "20px",
         }}
       >
         <button

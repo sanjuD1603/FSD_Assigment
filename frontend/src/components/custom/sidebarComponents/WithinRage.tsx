@@ -26,7 +26,7 @@ export default function WithinRange() {
         setCoordinates({ lat: latitude, lng: longitude });
       },
       (error) => {
-        // console.log(error);
+        console.log(error);
         notify(
           "Unable to fetch your location. Please enable location.",
           "error"
@@ -78,6 +78,7 @@ export default function WithinRange() {
 
       setSelectedRanges(updatedSelectedRanges);
     }
+
     notify("Results Fetched Successfully");
   };
 

@@ -1,13 +1,25 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import responses from "@/assets/responses/response.json";
 import { useSetAtom } from "jotai";
 import { filterAtom } from "@/lib/store/filterAndSort";
+import Image from "next/image";
 
 interface FetchCitiesProps {
   onClose: () => void;
 }
+
+type City = {
+  type: string;
+  id: number;
+  location: string;
+  city: string;
+  state: string;
+  latitude: number;
+  longitude: number;
+  imgPath: string;
+};
 
 const FetchCities: React.FC<FetchCitiesProps> = ({ onClose }) => {
   const [selectedCity, setSelectedCity] = useState<{
@@ -17,30 +29,33 @@ const FetchCities: React.FC<FetchCitiesProps> = ({ onClose }) => {
   const setFilter = useSetAtom(filterAtom);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [handleOutsideClick]);
+
   useEffect(() => {
     if (selectedCity) {
       setFilter((prev) => ({
         ...prev,
         listingState: selectedCity.state,
       }));
-      onClose(); 
+      onClose();
     }
   }, [selectedCity, setFilter, onClose]);
 
-  const handleCitySelection = (city: any) => {
+  const handleCitySelection = (city: City) => {
     setSelectedCity({ state: city.state, city: city.city });
   };
-
-  const handleOutsideClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      onClose();
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -59,11 +74,13 @@ const FetchCities: React.FC<FetchCitiesProps> = ({ onClose }) => {
                 onClick={() => handleCitySelection(city)}
                 className="flex flex-col items-center p-4 bg-gray-100 shadow-lg rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all cursor-pointer"
               >
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4">
-                  <img
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mb-4">
+                  <Image
                     src={city.imgPath}
                     alt={city.city}
-                    className="w-full h-full rounded-full object-cover"
+                    width={80}
+                    height={80}
+                    className="rounded-full object-cover"
                   />
                 </div>
                 <h2 className="text-sm sm:text-lg font-semibold text-gray-800">
@@ -79,4 +96,4 @@ const FetchCities: React.FC<FetchCitiesProps> = ({ onClose }) => {
   );
 };
 
-export default FetchCities;
+export default React.memo(FetchCities);

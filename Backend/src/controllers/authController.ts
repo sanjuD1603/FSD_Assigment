@@ -15,8 +15,8 @@ export const signUpRoute = async (
     return;
   }
 
-  const { name, username, password } = req.body;
-  
+  const { name, username, password, isAdminUser } = req.body;
+  // console.log(name, username, password, isAdminUser);
 
   try {
     const existingUser = await User.findOne({ username });
@@ -34,6 +34,7 @@ export const signUpRoute = async (
       name,
       username,
       password: hashedPassword,
+      isAdminUser,
     });
 
     await newUser.save();
@@ -44,6 +45,7 @@ export const signUpRoute = async (
         id: newUser._id,
         name: newUser.name,
         username: newUser.username,
+        isAdminuser: newUser.isAdminUser,
       },
     });
     return;
@@ -68,7 +70,7 @@ export const signInRoute = async (
   }
 
   const { username, password } = req.body;
-  console.log(username, password);
+  // console.log(username, password);
 
   try {
     const user = await User.findOne({ username });
@@ -91,8 +93,9 @@ export const signInRoute = async (
       id: user._id.toString(),
       name: user.name,
       username: user.username,
+      isAdminUser: user.isAdminUser,
     };
-    console.log(req.session.user);
+    // console.log(req.session.user);
 
     req.session.save((err) => {
       if (err) {
@@ -108,6 +111,7 @@ export const signInRoute = async (
         id: user._id,
         name: user.name,
         username: user.username,
+        isAdminUser: user.isAdminUser,
       },
     });
     return;
@@ -132,4 +136,26 @@ export const getSessionUser = (req: Request, res: Response): Promise<void> => {
     error: "No active session",
   });
   return;
+};
+
+export const logoutRoute = (req: Request, res: Response): void => {
+  if (req.session.user) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).json({
+          error: "Failed to log out. Please try again.",
+        });
+        return;
+      }
+
+      res.status(200).json({
+        message: "User logged out successfully",
+      });
+    });
+  } else {
+    res.status(400).json({
+      error: "No active session to log out",
+    });
+  }
 };

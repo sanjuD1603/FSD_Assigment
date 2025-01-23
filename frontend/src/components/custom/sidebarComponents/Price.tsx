@@ -1,29 +1,37 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Slider } from "@/components/ui/slider";
 import { filterAtom } from "@/lib/store/filterAndSort";
-import { useSetAtom } from "jotai";
+import { useAtom } from "jotai";
+import { notify } from "@/components/custom/NotificationProvider";
 
 const Price: React.FC = () => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([
-    2000, 200000,
-  ]);
-  const setFilter = useSetAtom(filterAtom);
+  const [filter, setFilter] = useAtom(filterAtom); 
 
-  useEffect(() => {
-    setFilter((prev) => ({
-      ...prev,
-      priceRange,
-    }));
-  }, [priceRange, setFilter]);
+  
+  const priceRange = filter.priceRange || [2000, 200000];
 
   const handleSliderChange = (value: number[]) => {
-    setPriceRange([value[0], value[1]]);
+    setFilter((prev) => ({
+      ...prev,
+      priceRange: [value[0], value[1]], 
+    }));
   };
 
+  useEffect(() => {
+    if (!filter.priceRange) {
+      
+      setFilter((prev) => ({
+        ...prev,
+        priceRange: [2000, 200000],
+      }));
+    }
+    notify("Results Fetched Successfully");
+  }, [filter.priceRange, setFilter]);
+
   return (
-    <div className="p-4 w-80 border rounded-md shadow-md bg-gray-50">
+    <div className="p-4 w-80 border rounded-md shadow-md ">
       <h1 className="text-lg font-semibold mb-3">Price</h1>
       <div className="space-y-4">
         <div className="flex justify-between text-sm text-gray-600">

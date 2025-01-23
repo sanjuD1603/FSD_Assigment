@@ -6,6 +6,7 @@ declare module "express-session" {
       id: string;
       name: string;
       username: string;
+      isAdminUser:boolean;
     };
   }
 }

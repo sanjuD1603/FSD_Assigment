@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import connectdb from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,12 +11,16 @@ connectdb();
 
 const corsOptions = {
   origin: "http://localhost:3000",
-  Credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
 app.use(cors(corsOptions));
-app.use(sessionMiddleware);
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(sessionMiddleware);
+
+
 
 app.use("/api/users", authRoutes);
 app.use("/products", productRoutes);

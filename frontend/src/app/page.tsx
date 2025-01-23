@@ -1,28 +1,32 @@
 import Sidebar from "@/components/custom/Sidebar";
 import Navbar from "@/components/custom/Navbar";
 import ProductGrid from "@/components/custom/ProductGrid";
+import Filter from "@/components/custom/Filter";
 
 function Home() {
   return (
-    <div className="flex flex-col h-full w">
-      
-      <header className=" text-white py-4 flex-none">
+    <div className="flex flex-col h-full min-w-[375px]">
+      <header className="text-white py-4 flex-none">
         <Navbar />
       </header>
-      
+
+   
+      <div className="bg-gray-100 py-2 px-4 md:px-16 lg:px-64 flex-none border-b">
+        <Filter />
+      </div>
+
+    
       <main className="flex flex-1 overflow-y-auto">
-        <aside className="w-1/4 h-full">
+    
+        <aside className="hidden lg:block lg:w-1/4 h-full border-r">
           <Sidebar />
         </aside>
 
-        <section className="flex-1 p-4 bg-white h-full ">
+     
+        <section className="flex-1 p-4 bg-white h-full">
           <ProductGrid />
         </section>
       </main>
-
-      <footer className="bg-gray-800 text-white py-2 text-center flex-none">
-        <p>This is Footer</p>
-      </footer>
     </div>
   );
 }

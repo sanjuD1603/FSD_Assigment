@@ -1,101 +1,98 @@
 "use client";
 
 import { filterAtom } from "@/lib/store/filterAndSort";
-import { useSetAtom } from "jotai";
-import { useState, useEffect } from "react";
+import { useAtom } from "jotai";
+import React from "react";
+import { notify } from "@/components/custom/NotificationProvider";
 
 export default function Warranty() {
-  const [selectedWarranty, setSelectedWarranty] = useState<string[]>(["Any"]);
-  const setFilter = useSetAtom(filterAtom);
+  const [filter, setFilter] = useAtom(filterAtom); 
+  const warrantyOptions = [
+    "3 months",
+    "6 months",
+    "1 year",
+    "2 years",
+    "3 years",
+  ];
 
-  
-  useEffect(() => {
-    if (selectedWarranty.includes("Any")) {
+  const handleCheckboxChange = (warrantyType: string) => {
+    if (warrantyType === "Any") {
       setFilter((prev) => ({
         ...prev,
         warranty: [], 
       }));
     } else {
+      const isSelected = filter.warranty?.includes(warrantyType);
       setFilter((prev) => ({
         ...prev,
-        warranty: selectedWarranty,
+        warranty: isSelected
+          ? filter.warranty?.filter((type) => type !== warrantyType) 
+          : [...(filter.warranty || []), warrantyType], 
       }));
     }
-  }, [selectedWarranty, setFilter]);
-
-  const handleCheckboxChange = (warrantyType: string) => {
-    if (warrantyType === "Any") {
-    
-      setSelectedWarranty(["Any"]);
-    } else {
-      
-      const updatedSelectedWarranty = selectedWarranty.includes(warrantyType)
-        ? selectedWarranty.filter((type) => type !== warrantyType) 
-        : [...selectedWarranty.filter((type) => type !== "Any"), warrantyType]; 
-
-      setSelectedWarranty(updatedSelectedWarranty);
-    }
+    notify("Results Fetched Successfully");
   };
 
   return (
-    <div className="p-4 w-80 border rounded-md shadow-md">
+    <div className="p-4 w-80 border rounded-md shadow-lg hover:shadow-xl transition-shadow duration-300">
       <h1 className="text-lg font-semibold mb-3">Warranty</h1>
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+        
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("Any")}
+            className="peer hidden"
+            checked={filter.warranty?.length === 0} 
             onChange={() => handleCheckboxChange("Any")}
           />
+          <span className="w-5 h-5 border border-[#1D506A] rounded-sm flex items-center justify-center peer-checked:bg-[#1D506A] peer-checked:border-[#1D506A]">
+            {filter.warranty?.length === 0 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 text-white"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 14.707a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L10 12.586l7.293-7.293a1 1 0 011.414 1.414l-8 8z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </span>
           <span>Any</span>
         </label>
         <hr className="my-2" />
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("3 months")}
-            onChange={() => handleCheckboxChange("3 months")}
-          />
-          <span>3 months</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("6 months")}
-            onChange={() => handleCheckboxChange("6 months")}
-          />
-          <span>6 months</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("1 year")}
-            onChange={() => handleCheckboxChange("1 year")}
-          />
-          <span>1 year</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("2 years")}
-            onChange={() => handleCheckboxChange("2 years")}
-          />
-          <span>2 years</span>
-        </label>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            className="form-checkbox h-4 w-4 text-blue-600"
-            checked={selectedWarranty.includes("3 years")}
-            onChange={() => handleCheckboxChange("3 years")}
-          />
-          <span>3 years</span>
-        </label>
+
+       
+        {warrantyOptions.map((warranty) => (
+          <label key={warranty} className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              className="peer hidden"
+              checked={filter.warranty?.includes(warranty)} 
+              onChange={() => handleCheckboxChange(warranty)}
+            />
+            <span className="w-5 h-5 border border-[#1D506A] rounded-sm flex items-center justify-center peer-checked:bg-[#1D506A] peer-checked:border-[#1D506A]">
+              {filter.warranty?.includes(warranty) && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4 text-white"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 14.707a1 1 0 01-1.414 0l-3-3a1 1 0 011.414-1.414L10 12.586l7.293-7.293a1 1 0 011.414 1.414l-8 8z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </span>
+            <span>{warranty}</span>
+          </label>
+        ))}
       </div>
     </div>
   );

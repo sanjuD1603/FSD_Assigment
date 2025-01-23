@@ -3,6 +3,7 @@
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useSetAtom } from "jotai";
 import { useState, useEffect } from "react";
+import { notify } from "@/components/custom/NotificationProvider";
 
 export default function Verification() {
   const [selectedOption, setSelectedOption] = useState<string>("Any");
@@ -13,6 +14,7 @@ export default function Verification() {
       ...prev,
       verified: selectedOption === "Any" ? "" : true,
     }));
+    notify("Results Fetched Successfully");
   }, [selectedOption, setFilter]);
 
   const handleOptionChange = (option: string) => {
@@ -26,22 +28,28 @@ export default function Verification() {
         <label className="flex items-center space-x-2">
           <input
             type="radio"
-            className="form-radio h-4 w-4 text-blue-600"
+            className="form-radio h-4 w-4"
             name="verification"
             value="Any"
             checked={selectedOption === "Any"}
             onChange={() => handleOptionChange("Any")}
+            style={{
+              accentColor: "#1D506A",
+            }}
           />
           <span>Any</span>
         </label>
         <label className="flex items-center space-x-2">
           <input
             type="radio"
-            className="form-radio h-4 w-4 text-blue-600"
+            className="form-radio h-4 w-4"
             name="verification"
             value="Verified Only"
             checked={selectedOption === "Verified Only"}
             onChange={() => handleOptionChange("Verified Only")}
+            style={{
+              accentColor: "#1D506A",
+            }}
           />
           <span>Verified Only</span>
         </label>

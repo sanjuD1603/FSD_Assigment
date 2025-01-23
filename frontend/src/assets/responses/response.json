@@ -1,0 +1,122 @@
+[
+    {
+        "type": "City",
+        "id": 4059014,
+        "location": "Pune, Maharashtra",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "latitude": 18.53121,
+        "longitude": 73.85799,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Pune.png"
+    },
+    {
+        "type": "City",
+        "id": 4157275,
+        "location": "Kolkata, West Bengal",
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "latitude": 22.57487,
+        "longitude": 88.3766,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Kolkata.png"
+    },
+    {
+        "type": "City",
+        "id": 4058677,
+        "location": "Ahmedabad, Gujarat",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "latitude": 23.03957,
+        "longitude": 72.5825,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Ahmedabad.png"
+    },
+    {
+        "type": "City",
+        "id": 4058659,
+        "location": "Delhi, Delhi",
+        "city": "Delhi",
+        "state": "Delhi",
+        "latitude": 28.66664,
+        "longitude": 77.08626,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/delhi.png"
+    },
+    {
+        "type": "City",
+        "id": 4059123,
+        "location": "Jaipur, Rajasthan",
+        "city": "Jaipur",
+        "state": "Rajasthan",
+        "latitude": 26.8849,
+        "longitude": 75.78961,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Jaipur.png"
+    },
+    {
+        "type": "City",
+        "id": 4059243,
+        "location": "Agra, Uttar Pradesh",
+        "city": "Agra",
+        "state": "Uttar Pradesh",
+        "latitude": 27.17741,
+        "longitude": 77.99145,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Agra.png"
+    },
+    {
+        "type": "City",
+        "id": 4058803,
+        "location": "Bengaluru, Karnataka",
+        "city": "Bengaluru",
+        "state": "Karnataka",
+        "latitude": 12.96626,
+        "longitude": 77.55318,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Bangalore.png"
+    },
+    {
+        "type": "City",
+        "id": 4058997,
+        "location": "Mumbai, Maharashtra",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "latitude": 19.05911,
+        "longitude": 72.86049,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Mumbai.png"
+    },
+    {
+        "type": "City",
+        "id": 4059306,
+        "location": "Lucknow, Uttar Pradesh",
+        "city": "Lucknow",
+        "state": "Uttar Pradesh",
+        "latitude": 26.84453,
+        "longitude": 80.94701,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Lucknow.png"
+    },
+    {
+        "type": "City",
+        "id": 4059162,
+        "location": "Chennai, Tamil Nadu",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "latitude": 13.083154,
+        "longitude": 80.272804,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Chennai.png"
+    },
+    {
+        "type": "City",
+        "id": 4058526,
+        "location": "Hyderabad, Telangana",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "latitude": 17.46497,
+        "longitude": 78.43517,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Hyderabad.png"
+    },
+    {
+        "type": "City",
+        "id": 4058727,
+        "location": "Surat, Gujarat",
+        "city": "Surat",
+        "state": "Gujarat",
+        "latitude": 21.1297,
+        "longitude": 72.87858,
+        "imgPath": "https://zenroecom.s3.us-west-2.amazonaws.com/cityimages/Surat.png"
+    }
+]

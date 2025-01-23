@@ -68,3 +68,26 @@ html,body,:root{
     @apply bg-background text-foreground;
   }
 }
+
+/* Scrollbar Container */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #f4f4f4; /* Light background color */
+  border-radius: 10px; /* Rounded edges */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background: #b0b0b0; /* Gray color for the thumb */
+  border-radius: 10px; /* Rounded edges for the thumb */
+  border: 2px solid #f4f4f4; /* Padding around the thumb */
+}
+
+/* Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Slightly darker gray on hover */
+}

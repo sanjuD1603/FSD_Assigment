@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useAtomValue } from "jotai";
 import { Product } from "@/assets/interface/product";
+import { notify } from "@/components/custom/NotificationProvider";
 const useProducts = () => {
   const filter = useAtomValue(filterAtom);
 
@@ -12,7 +13,7 @@ const useProducts = () => {
         : "";
     const conditionQuery =
       filter?.condition && filter?.condition.length > 0
-        ? `conditions=${filter.condition.join(",")}`
+        ? `condition=${filter.condition.join(",")}`
         : "";
     const storageQuery =
       filter?.storage && filter?.storage.length > 0
@@ -42,8 +43,11 @@ const useProducts = () => {
       filter?.coordinates && filter?.maxDistance
         ? `coordinates=${filter.coordinates}&distance=${filter.maxDistance}`
         : "";
+    const listingStateQuery = filter?.listingState
+      ? `listingState=${filter.listingState}`
+      : "";
 
-
+    // console.log(conditionQuery);
     const queryString = [
       brandQuery,
       conditionQuery,
@@ -54,32 +58,37 @@ const useProducts = () => {
       priceQuery,
       modelQuery,
       coordinatesQuery,
+      listingStateQuery,
     ]
       .filter(Boolean)
       .join("&");
 
-    console.log("Query String:", queryString);
+    // console.log("Query String:", queryString);
 
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/products${
           queryString ? `?${queryString}` : ""
-        }`
+        }`,
+        {
+          credentials: "include",
+        }
       );
 
       if (!response.ok) {
-        console.error(
-          `Error fetching products: ${response.status} ${response.statusText}`
+        notify(
+          `Error fetching products: ${response.status} ${response.statusText}`,
+          "error"
         );
         return [];
       }
 
       const data = await response.json();
-      console.log("Backend Response:", data);
+      // console.log("Backend Response:", data);
 
       return data.products || [];
     } catch (error) {
-      console.error("Fetch Error:", error);
+      notify("An Internal Error has Occured", "error");
       return [];
     }
   };

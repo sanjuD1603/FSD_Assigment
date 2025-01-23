@@ -4,7 +4,8 @@ interface IUser extends Document{
 name: string;
 username:string;
 password?:string;
-id:string;    
+id:string; 
+isAdminUser:boolean;   
 }
 
 const UserSchema: Schema<IUser>= new mongoose.Schema({
@@ -21,6 +22,11 @@ const UserSchema: Schema<IUser>= new mongoose.Schema({
         type:String,
         required:false,
     },
+    isAdminUser:{
+        type:Boolean,
+        required:false,
+        default:false
+    }
 })
 
 const User:Model<IUser> = mongoose.model<IUser>("User",UserSchema);

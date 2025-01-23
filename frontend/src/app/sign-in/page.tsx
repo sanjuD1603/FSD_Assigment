@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { FcGoogle } from "react-icons/fc";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Toaster } from "@/components/ui/sonner"; 
-import { toast } from "sonner"; 
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
+import logo from "@/assets/images/logo.png";
+import Image from "next/image";
 
 interface SignIn {
   username: string;
@@ -75,19 +76,20 @@ const SignIn = () => {
 
   return (
     <div className="h-full flex items-center justify-center bg-white">
-      <Toaster position="top-center" /> 
-      <Card className="w-[90%] sm:w-[420px] p-4 sm:p-8">
-        <CardHeader>
-          <CardTitle className="text-center">Sign In</CardTitle>
-          <CardDescription className="text-sm text-center text-accent-foreground">
-            Use email or services to Sign in
-          </CardDescription>
+      <Toaster position="top-center" />
+      <Card className="w-[90%] sm:w-[420px] p-4 sm:p-8 shadow-lg bg-white rounded-lg">
+        <CardHeader className="flex flex-col items-center">
+          <CardTitle>
+            <Image src={logo} alt="Logo" width={140} height={120} />
+          </CardTitle>
+          <CardDescription className="text-sm text-center mt-4"></CardDescription>
         </CardHeader>
+
         <CardContent className="px-2 sm:px-6">
           <form action="" className="space-y-3" onSubmit={handleSubmit}>
             <Input
               type="email"
-              disabled={false}
+              className="focus:ring-2 focus:ring-[#1D506A] focus:outline-none rounded-md border border-[#1D506A]"
               placeholder="Enter your UserName"
               value={form.username}
               name="username"
@@ -96,40 +98,33 @@ const SignIn = () => {
             />
             <Input
               type="password"
-              disabled={false}
+              className="focus:ring-2 focus:ring-[#1D506A] focus:outline-none rounded-md border border-[#1D506A]"
               name="password"
               placeholder="Enter your Password"
               value={form.password}
               onChange={handleChange}
               required
             />
-            <Button className="w-full" size="lg" disabled={false} type="submit">
+            <Button
+              className="w-full bg-[#1D506A] hover:bg-[#174054] text-white rounded-md shadow-md transition-all duration-300"
+              size="lg"
+              disabled={false}
+              type="submit"
+            >
               Submit
             </Button>
           </form>
           <Separator className="my-4" />
-          <div className="flex flex-col items-center space-y-2">
-            <Button
-              disabled={false}
-              type="submit"
-              variant="outline"
-              size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110 flex items-center"
+          <div className="text-center mt-2">
+            <p className="text-sm">
+              Create a New Account?
+            </p>
+            <Link
+              href="/sign-up"
+              className="text-[#1D506A] hover:underline cursor-pointer text-sm"
             >
-              <FcGoogle className="mr-2" />
-              Sign in with Google
-            </Button>
-            <div className="text-center mt-2">
-              <p className="text-sm text-muted-foreground">
-                Create a New Account?
-              </p>
-              <Link
-                href="/sign-up"
-                className="text-sky-700 hover:underline cursor-pointer text-sm"
-              >
-                Sign-up
-              </Link>
-            </div>
+              Sign-up
+            </Link>
           </div>
         </CardContent>
       </Card>

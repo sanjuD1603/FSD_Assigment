@@ -12,6 +12,7 @@ export interface FilterAtomInterface {
   priceRange?: [number, number];
   coordinates?: [number, number];
   status?: string[];
+  listingState?:string;
 }
 
 export const filterAtom = atom<FilterAtomInterface>({
@@ -26,4 +27,5 @@ export const filterAtom = atom<FilterAtomInterface>({
   coordinates: undefined,
   priceRange: undefined,
   status: [],
+  listingState:"",
 });

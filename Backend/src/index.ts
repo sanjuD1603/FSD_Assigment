@@ -19,17 +19,19 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
-app.use(cors(corsOptions));
 
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use((req: Request, res: Response, next: NextFunction) => {
   console.log(`Request received: ${req.method} ${req.url}`);
   next();
 });
-app.options("*", cors());
-res.header("Access-Control-Allow-Origin", "https://fsd-assigment.vercel.app");
-res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+
 app.use((req: Request, res: Response, next: NextFunction) => {
+  // res.header("Access-Control-Allow-Origin", "https://fsd-assigment.vercel.app");
+// res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+// res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });

@@ -86,6 +86,8 @@ const useProducts = () => {
       const data = await response.json();
       // console.log("Backend Response:", data);
 
+
+      notify("Results Fetched Succesfully")
       return data.products || [];
     } catch (error) {
       console.log(error);

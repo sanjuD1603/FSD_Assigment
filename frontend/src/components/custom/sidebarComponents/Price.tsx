@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Slider } from "@/components/ui/slider";
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useAtom } from "jotai";
-import { notify } from "@/components/custom/NotificationProvider";
+
 
 const Price: React.FC = () => {
   const [filter, setFilter] = useAtom(filterAtom); 
@@ -27,7 +27,6 @@ const Price: React.FC = () => {
         priceRange: [2000, 200000],
       }));
     }
-    notify("Results Fetched Successfully");
   }, [filter.priceRange, setFilter]);
 
   return (

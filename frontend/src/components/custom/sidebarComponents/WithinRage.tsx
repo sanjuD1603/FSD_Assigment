@@ -3,7 +3,6 @@
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useSetAtom } from "jotai";
 import { useState, useEffect } from "react";
-import { notify } from "@/components/custom/NotificationProvider";
 
 export default function WithinRange() {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -27,10 +26,6 @@ export default function WithinRange() {
       },
       (error) => {
         console.log(error);
-        notify(
-          "Unable to fetch your location. Please enable location.",
-          "error"
-        );
       }
     );
   };
@@ -78,8 +73,6 @@ export default function WithinRange() {
 
       setSelectedRanges(updatedSelectedRanges);
     }
-
-    notify("Results Fetched Successfully");
   };
 
   return (

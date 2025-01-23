@@ -3,7 +3,6 @@
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { notify } from "@/components/custom/NotificationProvider";
 export default function Brand() {
   const [filter, setFilter] = useAtom(filterAtom);
   const brands = [
@@ -41,7 +40,6 @@ export default function Brand() {
           : [...(filter.make || []), brand], 
       }));
     }
-    notify("Results Fetched Successfully");
   };
 
   const handleSelectAll = () => {

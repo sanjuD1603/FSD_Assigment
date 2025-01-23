@@ -3,7 +3,7 @@
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useAtom } from "jotai";
 import React from "react";
-import { notify } from "@/components/custom/NotificationProvider";
+
 
 export default function Warranty() {
   const [filter, setFilter] = useAtom(filterAtom); 
@@ -30,7 +30,7 @@ export default function Warranty() {
           : [...(filter.warranty || []), warrantyType], 
       }));
     }
-    notify("Results Fetched Successfully");
+    
   };
 
   return (

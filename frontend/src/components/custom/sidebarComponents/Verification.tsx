@@ -3,7 +3,7 @@
 import { filterAtom } from "@/lib/store/filterAndSort";
 import { useSetAtom } from "jotai";
 import { useState, useEffect } from "react";
-import { notify } from "@/components/custom/NotificationProvider";
+
 
 export default function Verification() {
   const [selectedOption, setSelectedOption] = useState<string>("Any");
@@ -14,7 +14,7 @@ export default function Verification() {
       ...prev,
       verified: selectedOption === "Any" ? "" : true,
     }));
-    notify("Results Fetched Successfully");
+    
   }, [selectedOption, setFilter]);
 
   const handleOptionChange = (option: string) => {

@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import connectdb from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -18,9 +18,13 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-app.options('*', cors());
+// app.options('*', cors());
 app.use(express.json());
 app.use(sessionMiddleware);
+app.use((req : Request , res : Response , next : NextFunction ) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use("/api/users", authRoutes);
 app.use("/products", productRoutes);

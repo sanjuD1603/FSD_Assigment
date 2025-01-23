@@ -19,13 +19,16 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 // app.options('*', cors());
-app.use(express.json());
-app.use(sessionMiddleware);
+app.use((req, res, next) => {
+  console.log(Request received: ${req.method} ${req.url});
+  next();
+});
 app.use((req : Request , res : Response , next : NextFunction ) => {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-
+app.use(express.json());
+app.use(sessionMiddleware);
 app.use("/api/users", authRoutes);
 app.use("/products", productRoutes);
 app.listen(port, () => {

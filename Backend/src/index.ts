@@ -15,7 +15,7 @@ const port = process.env.PORT || '5000';
 
 const corsOptions = {
   origin: 'https://fsd-assigment.vercel.app',
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE","OPTIONS" ,"HEAD"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };

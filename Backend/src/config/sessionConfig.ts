@@ -22,9 +22,9 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", 
-    sameSite: "none",
+    secure: false, 
     maxAge: 1000 * 60 * 60 ,
+    domain:"localhost",
   },
 });
 

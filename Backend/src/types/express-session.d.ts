@@ -10,3 +10,10 @@ declare module "express-session" {
     };
   }
 }
+
+
+declare namespace Express {
+  interface Request {
+    session: Session & Partial<SessionData>;
+  }
+}

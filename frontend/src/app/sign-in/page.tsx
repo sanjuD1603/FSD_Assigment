@@ -50,11 +50,12 @@ const SignIn = () => {
         `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/api/users/signin`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(form),
-          credentials: "include",
+         
         }
       );
 

@@ -70,7 +70,7 @@ export const signInRoute = async (
   }
 
   const { username, password } = req.body;
-  // console.log(username, password);
+  console.log(username, password);
 
   try {
     const user = await User.findOne({ username });
@@ -95,7 +95,7 @@ export const signInRoute = async (
       username: user.username,
       isAdminUser: user.isAdminUser,
     };
-    // console.log(req.session.user);
+    console.log(req.session.user);
 
     req.session.save((err) => {
       if (err) {
@@ -124,8 +124,8 @@ export const signInRoute = async (
   }
 };
 
-export const getSessionUser = (req: Request, res: Response): Promise<void> => {
-  if (req.session.user) {
+export const getSessionUser = (req: Request, res: Response): void => {
+  if (req.session && req.session.user) {
     res.status(200).json({
       user: req.session.user,
     });
@@ -135,8 +135,8 @@ export const getSessionUser = (req: Request, res: Response): Promise<void> => {
   res.status(401).json({
     error: "No active session",
   });
-  return;
 };
+
 
 export const logoutRoute = (req: Request, res: Response): void => {
   if (req.session.user) {

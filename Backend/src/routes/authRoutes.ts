@@ -32,4 +32,5 @@ router.post("/signin",authRateLimiter, signUpValidation, signInRoute);
 router.get("/user", getSessionUser);
 router.get("/logout", logoutRoute);
 
+
 export default router;

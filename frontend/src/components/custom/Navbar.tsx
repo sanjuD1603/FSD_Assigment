@@ -132,7 +132,7 @@ const Navbar: React.FC = () => {
   const handleClick = async (): Promise<void> => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/api/users/sign-in`,
+        `${process.env.NEXT_PUBLIC_BACKEND_END_POINT}/api/users/logout`,
         {
           method: "GET",
           credentials: "include",
@@ -339,5 +339,6 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
+
 
 export default Navbar;

@@ -22,10 +22,10 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     httpOnly: process.env.NODE_ENV === "production",
-    secure: process.env.NODE_ENV === "production", 
+    secure: false,
     maxAge: 1000 * 60 * 60,
-    sameSite:  process.env.NODE_ENV === "production" ? "None" : "Lax",
-    domain: process.env.NODE_ENV === "production" ? "fsd-assigment.onrender.com" : undefined
+    sameSite:  "None",
+    domain: "onrender.com"
   },
 });
 

@@ -22,9 +22,8 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     httpOnly: process.env.NODE_ENV === "production",
-    secure: true,
-    maxAge: 1000 * 60 * 60,
-    sameSite:  "none",
+    secure: false,
+    maxAge: 1000 * 60 * 60 * 60,
     path:"/",
     domain: "fsd-assigment.onrender.com",
   },

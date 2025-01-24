@@ -95,7 +95,7 @@ export const signInRoute = async (
       username: user.username,
       isAdminUser: user.isAdminUser,
     };
-    console.log(req.session.user);
+    console.log("authController" +  req.session.user);
 
     req.session.save((err) => {
       if (err) {
@@ -107,12 +107,7 @@ export const signInRoute = async (
 
     res.status(200).json({
       message: "Sign-in successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        username: user.username,
-        isAdminUser: user.isAdminUser,
-      },
+      user: req.session.user,
     });
     return;
   } catch (error) {
@@ -124,7 +119,7 @@ export const signInRoute = async (
   }
 };
 
-export const getSessionUser = (req: Request, res: Response): void => {
+export const getSessionUser = (req: Request, res: Response): Promise<void> => {
   if (req.session && req.session.user) {
     res.status(200).json({
       user: req.session.user,
@@ -135,8 +130,9 @@ export const getSessionUser = (req: Request, res: Response): void => {
   res.status(401).json({
     error: "No active session",
   });
-};
 
+  return;
+};
 
 export const logoutRoute = (req: Request, res: Response): void => {
   if (req.session.user) {
@@ -156,6 +152,6 @@ export const logoutRoute = (req: Request, res: Response): void => {
   } else {
     res.status(400).json({
       error: "No active session to log out",
-    });
-  }
+    });
+  }
 };

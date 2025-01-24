@@ -22,9 +22,10 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     httpOnly: true,
-    secure: false, 
+    secure: process.env.NODE_ENV === "production", 
     maxAge: 1000 * 60 * 60 ,
-    domain:"localhost",
+    domain:".vercel.app",
+    sameSite:"lax",
   },
 });
 

@@ -19,12 +19,14 @@ const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET || "defaultSecret",
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   store: store,
   cookie: {
     httpOnly: process.env.NODE_ENV === "production",
-    secure: false,
+    secure: true,
     maxAge: 1000 * 60 * 60 * 60,
     path:"/",
+    sameSite : "None",
     domain: "fsd-assigment.onrender.com",
   },
 });

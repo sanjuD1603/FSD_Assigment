@@ -119,6 +119,9 @@ const Navbar: React.FC = () => {
             credentials: "include",
           }
         );
+        if (!response.ok) {
+          window.location.href = "/sign-in";
+        }
         const userData = await response.json();
         setUser(userData.user);
       } catch (error) {
@@ -339,6 +342,5 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
-
 
 export default Navbar;

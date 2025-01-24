@@ -25,7 +25,7 @@ const sessionMiddleware = session({
     secure: false,
     maxAge: 1000 * 60 * 60,
     sameSite:  "None",
-    domain: "fsd-assigment.vercel.app"
+    domain: ".vercel.app"
   },
 });
 

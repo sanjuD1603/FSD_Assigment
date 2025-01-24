@@ -29,10 +29,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  // res.header("Access-Control-Allow-Origin", "https://fsd-assigment.vercel.app");
-// res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-// res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "https://fsd-assigment.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
@@ -43,7 +44,17 @@ app.use("/api/users", authRoutes);
 app.use("/products", productRoutes);
 
 app.use((req: Request, res: Response) => {
+  console.log(req.headers)
   res.status(404).json({ message: "Endpoint not found" });
+});
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  if (req.method === "OPTIONS") {
+    res.status(204).send();
+  } else {
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
+  }
 });
 
 app.listen(port, () => {

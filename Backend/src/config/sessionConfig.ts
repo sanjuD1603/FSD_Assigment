@@ -21,11 +21,11 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   store: store,
   cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production", 
-    maxAge: 1000 * 60 * 60 ,
-    domain:".vercel.app",
-    sameSite:"lax",
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 1000 * 60 * 60,
+    domain: ".vercel.app",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   },
 });
 

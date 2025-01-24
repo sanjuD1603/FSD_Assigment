@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
+import { cookie, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 
@@ -88,14 +88,14 @@ export const signInRoute = async (
       });
       return;
     }
-
+    console.log("User Found!!", user);
     req.session.user = {
       id: user._id.toString(),
       name: user.name,
       username: user.username,
       isAdminUser: user.isAdminUser,
     };
-    console.log("authController" +  req.session.user);
+    console.log("user saved to session ", req.session.user);
 
     req.session.save((err) => {
       if (err) {
@@ -114,6 +114,8 @@ export const signInRoute = async (
     console.error("Error during signin:", error);
     res.status(500).json({
       error: "Internal Server Error",
+      user: req.session.user,
+      cookie: req.session.cookie,
     });
     return;
   }
@@ -126,9 +128,10 @@ export const getSessionUser = (req: Request, res: Response): Promise<void> => {
     });
     return;
   }
-
   res.status(401).json({
     error: "No active session",
+    user: req.session.user,
+    cookie: req.session.cookie,
   });
 
   return;

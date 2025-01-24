@@ -22,7 +22,7 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     httpOnly: process.env.NODE_ENV === "production",
-    secure: true,
+    secure: false,
     maxAge: 1000 * 60 * 60,
     sameSite:  "None",
     domain: "fsd-assigment.vercel.app"

@@ -21,10 +21,11 @@ const sessionMiddleware = session({
   saveUninitialized: false,
   store: store,
   cookie: {
-    httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
+    httpOnly: process.env.NODE_ENV === "production",
+    secure: true,
     maxAge: 1000 * 60 * 60,
-    sameSite:  "lax",
+    sameSite:  "None",
+    domain: "fsd-assigment.vercel.app"
   },
 });
 

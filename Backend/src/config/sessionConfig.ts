@@ -24,8 +24,7 @@ const sessionMiddleware = session({
     httpOnly: false,
     secure: process.env.NODE_ENV === "production",
     maxAge: 1000 * 60 * 60,
-    domain: ".vercel.app",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    sameSite:  "lax",
   },
 });
 
